@@ -2,11 +2,20 @@
 
 Team 27
 --------
-s.gopikumarsreeja@student.unimelb.edu.au
-divyanshu.mishra@student.unimelb.edu.au
-anjaneyakrishna.turai@student.unimelb.edu.au
-ppit@student.unimelb.edu.au
-aswesh.thrissuranand@student.unimelb.edu.au
+Sweta Gopikumar
+s.gopikumarsreeja@student.unimelb.edu.au, 
+
+Divyanshu Mishra
+divyanshu.mishra@student.unimelb.edu.au, 
+
+Anjaneya Turai
+anjaneyakrishna.turai@student.unimelb.edu.au, 
+
+Henry Pit
+ppit@student.unimelb.edu.au, 
+
+Aswesh Anand
+aswesh.thrissuranand@student.unimelb.edu.au, 
 
 
 
