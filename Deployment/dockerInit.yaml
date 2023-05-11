@@ -1,0 +1,44 @@
+---
+- hosts: couchDB1, couchDB2
+  become: yes
+  tasks:
+    - name: remove any version of existing docker
+      become: true
+      apt:
+        name: ['docker', 'docker-engine', 'docker.io']
+        state: absent
+
+    - name: Install dependencies
+      become: true
+      apt:
+        name: ['apt-transport-https', 'ca-certificates', 'curl', 'python-setuptools', 'software-properties-common']
+        state: latest
+        update_cache: yes
+
+    - name: Add Docker repo key
+      become: true
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker apt repository
+      tags: 'docker'
+      become: true
+      apt_repository:
+        repo: "deb https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
+        mode: '644'
+        state: present
+
+    - name: Install docker
+      tags: 'docker'
+      become: true
+      apt:
+        name: ['docker-ce']
+        state: latest
+        update_cache: yes
+
+    - name: Install docker-compose
+      become: true
+      pip:
+        name: ['docker-compose']
+        state: latest

@@ -1,0 +1,13 @@
+---
+- hosts: harvester1
+  become: true
+
+  tasks:
+    # - name: pulling the docker images
+    #   command: docker pull henrypit/comp90024:harvester-v2
+
+    - name: run the containers for Mastondon AU
+      command: docker run --name harvesterV2 -d -e MASTODON_ACCESS_TOKEN='ZhOoXu_5AlN87KAjU4LRLow1KXnDdgSkGnJZ7Hk3MW0' -e URL='https://mastodon.au' -v /data:/toots  henrypit/comp90024:harvester-v2
+
+    # - name: run the containers for Mastondon Social
+    #   command: docker run --name harvesterV2 -d -e MASTODON_ACCESS_TOKEN='9eXRhU3YU9rPrXGDv_Ura7R2AowkjtQx2DZ_FMSSjsk' -e URL='https://mastodon.social' -v /data:/toots henrypit/comp90024:harvester-v2

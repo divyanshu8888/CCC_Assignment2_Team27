@@ -1,0 +1,12 @@
+analysis ansible_host=ubuntu@172.26.136.121 ansible_ssh_private_key_file=id_henry.pem
+
+harvester1 ansible_host=ubuntu@172.26.134.235 ansible_ssh_private_key_file=id_henry.pem
+
+harvester2 ansible_host=ubuntu@172.26.135.179 ansible_ssh_private_key_file=id_henry.pem
+
+couchDB1 ansible_host=ubuntu@172.26.135.230 ansible_ssh_private_key_file=id_henry.pem
+
+couchDB2 ansible_host=ubuntu@172.26.131.146 ansible_ssh_private_key_file=id_henry.pem
+
+couchDB2 ansible_host=ubuntu@172.26.136.39 ansible_ssh_private_key_file=id_henry.pem
+# Playbook is run as ansible-playbook -i inventory.txt xxxyy.yaml

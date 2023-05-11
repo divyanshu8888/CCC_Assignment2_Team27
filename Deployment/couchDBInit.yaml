@@ -1,0 +1,18 @@
+---
+- hosts: couchDB1
+  become: true
+  tasks:
+    # - name: pulling the couchDB images
+    #   command: docker pull ibmcom/couchdb3:3.2.1
+
+    - name: creating couchImage
+      command: docker create -p 5984:5984 -p 5986:5986 -p 4369:4369 -p 9100-9200:9100-9200 --name couchdb172.26.135.230 --env COUCHDB_USER='admin' --env COUCHDB_PASSWORD='admin' --env COUCHDB_SECRET='a192aeb9904e6590849337933b000c99' --env ERL_FLAGS="-setcookie \"a192aeb9904e6590849337933b000c99\" -name \"couchdb@172.26.135.230\"" ibmcom/couchdb3:3.2.1
+
+- hosts: couchDB2
+  become: true
+  tasks:
+    # - name: pulling the couchDB images
+    #   command: docker pull ibmcom/couchdb3:3.2.1
+
+    - name: creating couchImage
+      command: docker create -p 5984:5984 -p 5986:5986 -p 4369:4369 -p 9100-9200:9100-9200 --name couchdb172.26.132.134 --env COUCHDB_USER='admin' --env COUCHDB_PASSWORD='admin' --env COUCHDB_SECRET='a192aeb9904e6590849337933b000c99' --env ERL_FLAGS="-setcookie \"a192aeb9904e6590849337933b000c99\" -name \"couchdb@172.26.132.134\"" ibmcom/couchdb3:3.2.1

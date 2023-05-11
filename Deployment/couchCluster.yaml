@@ -1,0 +1,11 @@
+---
+- hosts: couchDB1, couchDB2
+  become: true
+  tasks:
+    - command: curl -XPOST "http{{':'}}//admin{{':'}}admin@172.26.133.17{{':'}}5984/_cluster_setup" --header "Content-Type{{':'}}application/json" --data "{\"action\"{{':'}} \"enable_cluster\", \"bind_address\"{{':'}}\"0.0.0.0\", \"username\"{{':'}} \"admin\", \"password\"{{':'}}\"admin\", \"port\"{{':'}}\"5984\", \"node_count\"{{':'}}\"2\"}"
+
+curl -X POST -H "Content-Type: application/json" http://admin:admin@:5984/_cluster_setup -d '{"action": "enable_cluster", "bind_address":"0.0.0.0", "username": "admin", "password":"password", "port": 5984, "node_count": "3", "remote_node": "<remote-node-ip>", "remote_current_user": "<remote-node-username>", "remote_current_password": "<remote-node-password>"}'
+curl -XPOST "http://admin:admin@172.26.133.17:5984/_cluster_setup" --header "Content-Type:application/json" --data "{\"action\": \"enable_cluster\", \"bind_address\":\"0.0.0.0\", \"username\": \"admin\", \"password\":\"admin\", \"port\":\"5984\", \"remote_node\": \"172.26.132.134\", \"node_count\": \"2\", \"remote_current_user\":\"admin\", \"remote_current_password\":\"admin\"}"
+curl -XPOST "http://admin:admin@172.26.133.17:5984/_cluster_setup" --header "Content-Type: application/json" --data "{\"action\": \"add_node\", \"host\":\"172.26.132.134\", \"port\": \"5984\", \"username\": \"admin\", \"password\":\"admin\"}"
+curl -XPOST "http://admin:admin@172.26.133.17:5984/_cluster_setup" --header "Content-Type: application/json" --data "{\"action\": \"finish_cluster\"}"
+curl http://admin:admin@172.26.133.17:5984/_membership
