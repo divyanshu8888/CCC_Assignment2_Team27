@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 import ijson
 import json
 import requests
 
 file = open('twitter-huge.json', 'rb')
 total_chunk = ijson.items(file, "rows.item")
-url = "http://admin:admin@172.26.135.230:5984/testing/_bulk_docs"
+url = "http://admin:admin@172.26.136.39:5984/twitter/_bulk_docs"
 
 index = 0
 restart_point = 0
@@ -49,10 +50,10 @@ for tweet in total_chunk:
         x = requests.post(url, headers = {"Content-Type": "application/json"}, json = sendDoc)
         print("I've sent the data")
 
-        index_file = {"indexCurrent": index}
-        json_object = json.dumps(index_file)
-        with open('index.json', 'w') as f:
-            f.write(json_object)
+        # index_file = {"indexCurrent": index}
+        # json_object = json.dumps(index_file)
+        # with open('index.json', 'w') as f:
+        #     f.write(json_object)
 
         docList = []
          
@@ -63,9 +64,9 @@ if len(docList) > 0:
     x = requests.post(url, headers = {"Content-Type": "application/json"}, json = sendDoc)
     print("I've sent the data")
 
-    index_file = {"indexCurrent": index}
-    json_object = json.dumps(index_file)
-    with open('index.json', 'w') as f:
-        f.write(json_object)
+    # index_file = {"indexCurrent": index}
+    # json_object = json.dumps(index_file)
+    # with open('index.json', 'w') as f:
+    #     f.write(json_object)
 
         
