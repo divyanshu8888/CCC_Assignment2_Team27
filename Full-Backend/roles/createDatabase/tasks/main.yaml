@@ -1,0 +1,6 @@
+---
+# Starting the containers that have been created
+- name: starting the couchDB containers
+  become: true
+  command: docker start couchdb{{ item.ip_address }}
+  loop: {{ couchID }}

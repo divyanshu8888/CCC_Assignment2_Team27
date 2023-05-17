@@ -1,0 +1,97 @@
+# General Requirement
+ansible_user: ubuntu
+key: ./id_henry.pem
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+remote_working_directory: /home/ubuntu
+
+# Requirement for couchDB
+couchdb_image: ibmcom/couchdb3
+couchdb_user: admin
+couchdb_pass: admin
+couchdb_VERSION: '3.2.1'
+couchdb_cookie: 'a192aeb9904e6590849337933b000c99'
+couchdb_uuid: 'a192aeb9904e6590849337933b001159'
+couchID:
+  - name: master
+    ip_address: 172.26.135.230
+  
+  - name: worker 1
+    ip_address: 172.26.131.146
+  
+  - name: worker 2
+    ip_address: 172.26.136.39
+
+# Requirement for harvestor
+harvestors:
+  - name: harvestor 1
+    description: "Mastodon Client For AU"
+    url: 'https://mastodon.au'
+    api_token: 'ZhOoXu_5AlN87KAjU4LRLow1KXnDdgSkGnJZ7Hk3MW0'
+  
+  - name: harvestor 2
+    description: "Mastodon Client for Social"
+    url: 'https://mastodon.social'
+    api_token: '9eXRhU3YU9rPrXGDv_Ura7R2AowkjtQx2DZ_FMSSjsk'
+
+# Requirement for launching Virtual Machines
+availability_zone: melbourne-qh2-uom
+network: qh2-uom-internal
+flavor: uom.mse.2c9g
+key_name: id_henry 
+security_groups:
+  - name: demo
+    description: "This group is for trivial VM like Analysis and "
+    protocol: tcp
+    port_range_min: 1
+    port_range_max: 80
+    remote_ip_prefix: 0.0.0.0/0
+  - name: couchDB
+  description: "This security group is used for couchDB instances"
+  protocol: tcp
+  port_range_min: 1
+  port_range_max: 9200
+  remote_ip_prefix: 0.0.0.0/0
+volumes:
+  - vol_name: Twitter Analysis
+    vol_size: 100
+    device: /dev/vdb
+    mountpoint: /data
+  - vol_name: Mastodon-Storage-1
+    vol_size: 50
+    device: /dev/vdb
+    mountpoint: /data
+  - vol_name: Mastodon-Storage-2
+    vol_size: 50
+    device: /dev/vdb
+    mountpoint: /data
+  - vol_name: CouchDB Master Volume
+    vol_size: 80
+    device: /dev/vdb
+    mountpoint: /data
+  - vol_name: CouchDB worker 1 volume
+    vol_size: 60
+    device: /dev/vdb
+    mountpoint: /data
+  - vol_name: CouchDB Worker 2 Volume
+    vol_size: 60
+    device: /dev/vdb
+    mountpoint: /data
+instances:
+  - name: Twitter-Analysis
+    security_groups: demo
+    volumes: ['Twitter Analysis']
+  - name: Harvestor
+    security_groups: demo
+    volumes: ['Mastodon-Storage-1']
+  - name: Harvestor 2
+    security_groups: demo
+    volumes: ['Mastodon-Storage-2']
+  - name: CouchDB Master
+    security_groups: couchDB
+    volumes: ['CouchDB Master Volume']
+  - name: CouchDB Worker 1
+    security_groups: couchDB
+    volumes: ['CouchDB Worker 1 volume']
+  - name: CouchDB Worker 2
+    security_groups: couchDB
+    volumes: ['CouchDB Worker 2 volume']

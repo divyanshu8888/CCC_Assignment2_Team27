@@ -1,0 +1,8 @@
+---
+# The docker containers were pulled by Terraforming. We now start
+- hosts: database
+  vars_files:
+    - host_vars/var_name.yaml
+  gather_facts: true
+  roles:
+    - role: createDatabase

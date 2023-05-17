@@ -1,0 +1,14 @@
+---
+# Pulling the image from repository
+- name: Pulling the images
+  become: true
+  command: docker pull {{couchdb_image}}:{{couchdb_VERSION}}
+
+# Building the image for the 
+- name: building the images
+  become: true
+  command: docker create -p 5984:5984 -p 5986:5986 -p 4369:4369 -p 9100-9200:9100-9200\
+          --name couchdb{{ item.ip_address }} --env COUCHDB_USER='admin' --env COUCHDB_PASSWORD='admin'\
+          --env COUCHDB_SECRET={{couchdb_cookie}} --env ERL_FLAGS="-setcookie {{couchdb_cookie}} -name \"couchdb@{{item.ip_address}}\"" {{couchdb_image}}:{{couchdb_VERSION}}
+  loop: {{ couchID }}
+

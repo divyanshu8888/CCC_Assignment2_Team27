@@ -1,0 +1,7 @@
+---
+# Have both harvestor up all at once
+- name: deploying harvestors
+  become: true
+  command: docker run --name harvester -d -e MASTODON_ACCESS_TOKEN={{ item.api_token }}\
+          -e URL={{ item.url }} -v /data:/toots henrypit/comp90024:harvester-v2
+  loop: "{{ harvestors }}"
